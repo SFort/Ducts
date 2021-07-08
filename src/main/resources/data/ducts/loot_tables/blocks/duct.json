@@ -8,11 +8,6 @@
           "type": "minecraft:item",
           "name": "ducts:duct"
         }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
       ]
     }
   ]
