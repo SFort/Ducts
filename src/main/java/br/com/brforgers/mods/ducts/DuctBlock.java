@@ -6,15 +6,15 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.*;
-import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -86,29 +86,6 @@ public class DuctBlock extends BlockWithEntity {
     @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
         return getDefaultState().with(OUTPUT, context.getSide().getOpposite());
-    }
-
-    private Boolean canConnect(BlockState other, Direction dirToOther)  {
-        return (other.isOf(Blocks.HOPPER)|| other.isOf(Ducts.DUCT_BLOCK)) &&(
-                (other.contains(Properties.FACING) && other.get(Properties.FACING) == dirToOther.getOpposite())||
-                        (other.contains(Properties.HORIZONTAL_FACING) && other.get(Properties.HORIZONTAL_FACING) == dirToOther.getOpposite())
-                        ||(other.contains(Properties.HOPPER_FACING) && other.get(Properties.HOPPER_FACING) == dirToOther.getOpposite())
-                );
-    }
-
-    @Override
-    public ActionResult onUse(
-             BlockState state,
-             World world,
-             BlockPos pos,
-             PlayerEntity player,
-             Hand hand,
-             BlockHitResult blockHitPos
-    )  {
-        if (player.getStackInHand(hand).getItem() == this.asItem() && player.isSneaky())
-            return ActionResult.PASS;
-
-        return ActionResult.SUCCESS;
     }
 
     @Override
